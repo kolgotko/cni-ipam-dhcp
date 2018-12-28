@@ -11,4 +11,6 @@ create file dhcp.conf:
 
 execute command in shell:
 
-`% sudo cat dhcp.conf | sudo env CNI_COMMAND="ADD" CNI_CONTAINERID=1 CNI_IFNAME=eth0 CNI_PATH=`pwd` ./index.js | jq`
+```sh
+% sudo cat dhcp.conf | sudo env CNI_COMMAND="ADD" CNI_CONTAINERID=1 CNI_IFNAME=eth0 CNI_PATH=`pwd` ./index.js | jq
+```
