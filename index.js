@@ -31,6 +31,7 @@ async function cmdAdd(envData, stdinData) {
     spawnSync('jexec', [
         containerId, "ifconfig", ifName, "inet", "0.0.0.0", "up"
     ]);
+
     let result = spawnSync('dhclient-cni', [], {
         input: JSON.stringify({
             iface: ifName,
@@ -61,10 +62,11 @@ async function cmdAdd(envData, stdinData) {
 
     } else {
 
+        let output = JSON.parse(result.stdout);
         let data = {
             "cniVersion": "0.3.1",
             "code": result.status,
-            "msg": result.output.toString(),
+            "msg": output.msg,
         };
 
         console.log(JSON.stringify(data));
