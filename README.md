@@ -22,8 +22,7 @@ similar output:
     {
       "version": "4",
       "address": "192.168.0.143/24",
-      "gateway": "192.168.0.1",
-      "interface": 0
+      "gateway": "192.168.0.1"
     }
   ],
   "routes": [],
