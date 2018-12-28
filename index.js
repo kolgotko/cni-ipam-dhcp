@@ -48,7 +48,7 @@ async function cmdAdd(envData, stdinData) {
                 {
                     version: "4",
                     address: dhcp.ip_cidr,
-                    gateway: dhcp.router,
+                    gateway: dhcp.options.router,
                 },
             ],
             routes: [],
