@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const {spawn, spawnSync} = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const {spawn, spawnSync} = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
 async function getStdinData() {
 
     return new Promise((res, rej) => {
 
-        let returnData = '';
+        let returnData = "";
         let dataHandler = data => { returnData += data; };
 
-        process.stdin.on('data', dataHandler);
-        process.stdin.on('end', _ => {
-            process.stdin.removeListener('data', dataHandler);
+        process.stdin.on("data", dataHandler);
+        process.stdin.on("end", _ => {
+            process.stdin.removeListener("data", dataHandler);
             res(returnData);
         });
 
@@ -28,11 +28,11 @@ async function cmdAdd(envData, stdinData) {
     let containerId = envData.CNI_CONTAINERID;
     let ifName = envData.CNI_IFNAME;
 
-    spawnSync('jexec', [
+    spawnSync("jexec", [
         containerId, "ifconfig", ifName, "inet", "0.0.0.0", "up"
     ]);
 
-    let result = spawnSync('dhclient-cni', [], {
+    let result = spawnSync("dhclient_cni", [], {
         input: JSON.stringify({
             iface: ifName,
             jid: parseInt(containerId),
@@ -87,9 +87,9 @@ async function cmdDel(envData, stdinData) {
 (async _ => {
 
     let defaults = {
-        cniVersion: '0.3.1',
-        name: '',
-        type: 'dhcp',
+        cniVersion: "0.3.1",
+        name: "",
+        type: "dhcp",
     };
 
     let envData = process.env;
@@ -99,10 +99,10 @@ async function cmdDel(envData, stdinData) {
     stdinData = Object.assign({}, defaults, stdinData);
 
     switch (command) {
-        case 'ADD':
+        case "ADD":
             await cmdAdd(envData, stdinData);
             break;
-        case 'DEL':
+        case "DEL":
             await cmdDel(envData, stdinData);
             break;
     }
